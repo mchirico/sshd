@@ -43,10 +43,13 @@ func (s *SSHD)PublicKeyCallback(c ssh.ConnMetadata, pubKey ssh.PublicKey)(*ssh.P
 func (s *SSHD)ReadKey() error {
 
 
-	authorizedKeysBytes, err := ioutil.ReadFile("/etc/authorized_keys")
+	authorizedKeysBytes, err := ioutil.ReadFile("./authorized_keys")
 	if err != nil {
 
+		authorizedKeysBytes, err = ioutil.ReadFile("/etc/authorized_keys")
+		if err != nil {
 		return fmt.Errorf("can't read authorized_keys")
+		}
 	}
 
 	s.authorizedKeysMap = map[string]bool{}

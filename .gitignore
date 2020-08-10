@@ -17,3 +17,4 @@ id_rsa*
 credentials/**/*
 go.sum
 sshd
+authorized_keys*
