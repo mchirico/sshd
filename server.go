@@ -52,7 +52,18 @@ func main() {
 	// You can generate a keypair with 'ssh-keygen -t rsa'
 	privateBytes, err := ioutil.ReadFile("id_rsa")
 	if err != nil {
-		log.Fatal("Failed to load private key (./id_rsa)")
+		msg := `
+
+Failed to load private key (./id_rsa)
+
+You can quickly fix this, with the following command:
+
+	ssh-keygen -t rsa -f id_rsa
+	cp id_rsa.pub authorized_keys
+		
+		
+		`
+		log.Fatal(msg)
 	}
 
 	private, err := ssh.ParsePrivateKey(privateBytes)
